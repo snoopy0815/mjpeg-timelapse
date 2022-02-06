@@ -101,7 +101,7 @@ class MjpegTimelapseCamera(Camera):
         self._attr_image_url = device_info[CONF_IMAGE_URL]
         self._attr_attribution = urlparse(self._attr_image_url).netloc
         self._attr_name = device_info.get(CONF_NAME, self._attr_attribution)
-        self._attr_unique_id = hashlib.sha256(self._attr_image_url.encode("utf-8")).hexdigest()
+        self._attr_unique_id = hashlib.sha256(self._attr_name.encode("utf-8")).hexdigest()
         self.image_dir = pathlib.Path(hass.config.path(CAMERA_DOMAIN)) / self._attr_unique_id
         self._attr_frame_rate = device_info.get(CONF_FRAMERATE, 2)
         self._attr_fetch_interval = dt.timedelta(seconds=device_info.get(CONF_FETCH_INTERVAL, 60))
